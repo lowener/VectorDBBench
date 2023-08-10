@@ -54,6 +54,7 @@ CaseConfigParamInput_IndexType = CaseConfigInput(
             IndexType.DISKANN.value,
             IndexType.Flat.value,
             IndexType.AUTOINDEX.value,
+            IndexType.CAGRA.value,
         ],
     },
 )
@@ -186,6 +187,79 @@ CaseConfigParamInput_Nprobe = CaseConfigInput(
     == IndexType.IVFFlat.value,
 )
 
+CaseConfigParamInput_Graph_Degree = CaseConfigInput(
+    label=CaseConfigParamType.graph_degree,
+    inputType=InputType.Number,
+    inputConfig={
+        "min": 1,
+        "max": 1000,
+        "value": 32,
+    },
+    isDisplayed=lambda config: config.get(CaseConfigParamType.IndexType, None)
+    == IndexType.CAGRA.value,
+)
+
+CaseConfigParamInput_Intermediate_Graph_Degree = CaseConfigInput(
+    label=CaseConfigParamType.intermediate_graph_degree,
+    inputType=InputType.Number,
+    inputConfig={
+        "min": 1,
+        "max": 1000,
+        "value": 32,
+    },
+    isDisplayed=lambda config: config.get(CaseConfigParamType.IndexType, None)
+    == IndexType.CAGRA.value,
+)
+
+CaseConfigParamInput_Itopk = CaseConfigInput(
+    label=CaseConfigParamType.itopk,
+    inputType=InputType.Number,
+    inputConfig={
+        "min": 1,
+        "max": 1000,
+        "value": 32,
+    },
+    isDisplayed=lambda config: config.get(CaseConfigParamType.IndexType, None)
+    == IndexType.CAGRA.value,
+)
+
+CaseConfigParamInput_Algo = CaseConfigInput(
+    label=CaseConfigParamType.algo,
+    inputType=InputType.Option,
+    inputConfig={
+        "options": [
+            "AUTO",
+            "MULTI_CTA",
+        ],
+    },
+    isDisplayed=lambda config: config.get(CaseConfigParamType.IndexType, None)
+    == IndexType.CAGRA.value,
+)
+
+CaseConfigParamInput_Search_width = CaseConfigInput(
+    label=CaseConfigParamType.search_width,
+    inputType=InputType.Number,
+    inputConfig={
+        "min": 1,
+        "max": 1000,
+        "value": 2,
+    },
+    isDisplayed=lambda config: config.get(CaseConfigParamType.IndexType, None)
+    == IndexType.CAGRA.value,
+)
+
+CaseConfigParamInput_Max_iterations = CaseConfigInput(
+    label=CaseConfigParamType.max_iterations,
+    inputType=InputType.Number,
+    inputConfig={
+        "min": 0,
+        "max": 1000,
+        "value": 16,
+    },
+    isDisplayed=lambda config: config.get(CaseConfigParamType.IndexType, None)
+    == IndexType.CAGRA.value,
+)
+
 CaseConfigParamInput_Lists = CaseConfigInput(
     label=CaseConfigParamType.lists,
     inputType=InputType.Number,
@@ -221,6 +295,12 @@ MilvusPerformanceConfig = [
     CaseConfigParamInput_SearchList,
     CaseConfigParamInput_Nlist,
     CaseConfigParamInput_Nprobe,
+    CaseConfigParamInput_Graph_Degree,
+    CaseConfigParamInput_Intermediate_Graph_Degree,
+    CaseConfigParamInput_Itopk,
+    CaseConfigParamInput_Algo,
+    CaseConfigParamInput_Search_width,
+    CaseConfigParamInput_Max_iterations,
 ]
 
 WeaviateLoadConfig = [

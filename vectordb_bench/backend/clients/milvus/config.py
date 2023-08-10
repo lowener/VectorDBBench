@@ -112,11 +112,38 @@ class FLATConfig(MilvusIndexConfig, DBCaseConfig):
             "params": {},
         }
 
+class CAGRAConfig(MilvusIndexConfig, DBCaseConfig):
+    graph_degree: int
+    intermediate_graph_degree: int
+    itopk: int | None = None
+    algo: str | None = None
+    search_width: int | None = None
+    max_iterations: int | None = None
+    index: IndexType = IndexType.CAGRA
+
+    def index_param(self) -> dict:
+        return {
+            "metric_type": self.parse_metric(),
+            "index_type": self.index.value,
+            "params": {"graph_degree": self.graph_degree, "intermediate_graph_degree": self.intermediate_graph_degree},
+        }
+
+    def search_param(self) -> dict:
+        return {
+            "metric_type": self.parse_metric(),
+            "params": {"nprobe": self.nprobe, 
+                       "itopk": self.itopk,
+                       "algo": self.algo,
+                       "search_width": self.search_width,
+                       "max_iterations": self.max_iterations,},
+        }
+
 _milvus_case_config = {
     IndexType.AUTOINDEX: AutoIndexConfig,
     IndexType.HNSW: HNSWConfig,
     IndexType.DISKANN: DISKANNConfig,
     IndexType.IVFFlat: IVFFlatConfig,
     IndexType.Flat: FLATConfig,
+    IndexType.CAGRA: CAGRAConfig,
 }
 

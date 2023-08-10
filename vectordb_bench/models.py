@@ -45,6 +45,12 @@ class CaseConfigParamType(Enum):
     numCandidates = "num_candidates"
     lists = "lists"
     probes = "probes"
+    graph_degree = "graph_degree"
+    intermediate_graph_degree = "intermediate_graph_degree"
+    itopk = "itopk"
+    algo = "algo"
+    search_width = "search_width"
+    max_iterations = "max_iterations"
 
 
 class CustomizedCase(BaseModel):

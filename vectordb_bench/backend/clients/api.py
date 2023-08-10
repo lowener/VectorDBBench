@@ -19,6 +19,7 @@ class IndexType(str, Enum):
     Flat = "FLAT"
     AUTOINDEX = "AUTOINDEX"
     ES_HNSW = "hnsw"
+    CAGRA = "CAGRA"
 
 
 class DBConfig(ABC, BaseModel):
